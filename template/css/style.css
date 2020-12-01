@@ -1,0 +1,174 @@
+body {
+	min-width: 320px;
+	font-size: 14px;
+	font-family: 'Playfair Display', serif;
+	color: #626262;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: #b4ad9e;
+}
+
+a:hover {
+	color: #898377;
+}
+
+p{
+	line-height: 1.5rem;
+	font: 18px Times New Roman;
+}
+
+h2, h3{
+	margin: 1rem 0;
+	font-size: 30px;
+}
+
+h3 span{
+	font-size: 20px;
+	color: red;
+}
+
+h4 span{
+	color: red;
+	text-decoration: underline;
+}
+
+header{
+	margin-bottom: 50px;
+}
+
+header .navbar-brand {
+	font-family: 'Inconsolata', monospace;
+	font-size: 30px;
+	color: #000;
+	text-transform: uppercase;
+}
+
+header .navbar-brand span{
+	text-transform: capitalize;
+	font-size: 18px;
+	color: red;
+}
+
+header .nav-item {
+	text-transform: uppercase;
+	margin-left: 20px;	
+}
+
+header .nav-item span{
+	color: red;
+}
+
+header .nav-item a::after {
+	content: '';
+	display: block;
+	width: 100%;
+	background-color: #ccc;
+	height: 1px;
+	transform: scale(0); /*подчёркивание ссылок сокращаем до нуля*/
+	transition: all .3s; /*устанавливаем время эффекта подчёркивания ссылок*/
+}
+
+header .nav-item a:hover::after {
+	transform: scale(1); /*подчёркивание ссылок увеличиваем до единицы*/
+}
+
+.slider{
+	margin-bottom: 50px;
+}
+
+.post-category,
+.link-more{
+	font-family: 'Ubuntu' sans-serif;
+	font-size: 14px;
+	color: #b4ad9e;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+
+.post-title{
+	color: #626262;
+}
+
+.grid-posts{
+	margin-top: 100px;
+	margin-bottom: 100px;
+}
+
+.grid-posts .card{
+	border: 0;
+	margin-bottom: 20px;
+}
+
+.grid-posts .card-body{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.grid-posts .card-body a{
+	color: #000;
+	font-size: 25px;
+}
+
+.grid-posts .card-body:hover{
+	background: grey;
+}
+
+.grid-posts .card-body a:active{
+	background: none;
+	border: none;
+}
+
+.grid-posts .card-body .btn{
+	background: none;
+	border: none;
+}
+
+.table-bordered th{
+	font: 18px Times New Roman;
+	font-weight: bold;
+	background: gray;
+	color: white;
+}
+
+.table-bordered td{
+	font: 18px Times New Roman;
+}
+
+.table-bordered{
+	margin-bottom: 50px;
+}
+
+.add-uchastok, .add-user, .add-dolg{
+	padding: 20px;
+	margin-bottom: 50px;
+}
+
+.form-group .btn a{
+	color: #fff;
+}
+
+.form-check{
+	margin-bottom: 20px;
+}
+
+.btn-secondary{
+	background: gray;
+}
+
+.btn-secondary a{
+	color: white;
+}
+
+.btn-secondary a:hover{
+	text-decoration: none;;
+}
+
+.btn .btn-secondary{
+	border-radius: none;
+}
