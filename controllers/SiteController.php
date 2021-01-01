@@ -2,11 +2,18 @@
 # Отображение страниц сайта
 class SiteController
 {
+	public $userRole;
+
+	public function __construct()
+	{
+		$this->userRole = User::userRole();
+	}
+
 	// Action для главной страницы
 	public function actionIndex()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		require_once(ROOT.'/views/site/index.php');
 
@@ -17,7 +24,7 @@ class SiteController
 	public function actionBuses()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		require_once(ROOT.'/views/site/buses.php');
 
@@ -28,7 +35,7 @@ class SiteController
 	public function actionPoliv()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		require_once(ROOT.'/views/site/poliv.php');
 
@@ -39,7 +46,7 @@ class SiteController
 	public function actionTarif()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		require_once(ROOT.'/views/site/tarif.php');
 
@@ -50,7 +57,7 @@ class SiteController
 	public function actionGrafik()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		require_once(ROOT.'/views/site/grafik.php');
 
@@ -61,7 +68,7 @@ class SiteController
 	public function actionContacts()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		// Список всех контактов
 		$contacts = Contacts::getAllContacts();
@@ -75,15 +82,15 @@ class SiteController
 	public function actionUchastki()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		// Список всех участков
 		$uchastki = Uchastki::getAllUchastki();
 
-		// Список приватизированных участков
+		// Данные приватизированных участков
 		$uchastkiPrivat = Uchastki::getPrivatUchastki();
 
-		// Список НЕприватизированных участков
+		// Данные НЕприватизированных участков
 		$uchastkiNotPrivat = Uchastki::getNotPrivatUchastki();
 
 		// Получаем количество всех участков
@@ -99,11 +106,49 @@ class SiteController
 
 	}
 
+	// Action для страницы с приватизированными участками
+	public function actionPrivatUchastki()
+	{
+		// Определение роли юзера
+		$userRole = $this->userRole;
+
+		// Список приватизированных участков
+		$allUchastkiPrivat = Uchastki::getAllPrivatUchastki();
+
+		// Допуск по роли юзера
+		if ($userRole == 'admin' || $userRole == 'pravlenie') {
+			require_once(ROOT.'/views/site/uchastki_privat.php');
+			return true;
+		} else {
+			header("Location: /user/login");
+		}
+
+	}
+
+	// Action для страницы с приватизированными участками
+	public function actionNotPrivatUchastki()
+	{
+		// Определение роли юзера
+		$userRole = $this->userRole;
+
+		// Список приватизированных участков
+		$uchastkiAllNotPrivat = Uchastki::getAllNotPrivatUchastki();
+
+		// Допуск по роли юзера
+		if ($userRole == 'admin' || $userRole == 'pravlenie') {
+			require_once(ROOT.'/views/site/uchastki_not_privat.php');
+			return true;
+		} else {
+			header("Location: /user/login");
+		}
+
+	}
+
 	// Action для страницы с садоводами
 	public function actionSadovods()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		// Список всех садоводов
 		$sadovods = Sadovods::getAllSadovods();
@@ -127,14 +172,14 @@ class SiteController
 	public function actionSadovodsSvt()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		// Список садоводов, живущих в СВТ
 		$usersSvt = Sadovods::getSadovodsSvt();
 
 		// Допуск по роли юзера
 		if ($userRole == 'admin' || $userRole == 'pravlenie') {
-			require_once(ROOT.'/views/site/sadovodssvt.php');
+			require_once(ROOT.'/views/site/sadovods_svt.php');
 			return true;
 		} else {
 			header("Location: /user/login");
@@ -145,7 +190,7 @@ class SiteController
 	public function actionElectro()
 	{
 		// Определение роли юзера
-		$userRole = User::userRole();
+		$userRole = $this->userRole;
 
 		// Данные по показаниям электросчётчиков
 		$electroAll = Electro::getAllElectro();
@@ -153,6 +198,34 @@ class SiteController
 		// Допуск по роли юзера
 		if ($userRole == 'admin' || $userRole == 'pravlenie') {
 			require_once(ROOT.'/views/site/electro.php');
+			return true;
+		} else {
+			header("Location: /user/login");
+		}
+
+	}
+
+	// Action для страницы с должниками
+	public function actionDolgi()
+	{
+		// Определение роли юзера
+		$userRole = $this->userRole;
+
+		// Список всех участков
+		$uchastki = Uchastki::getAllUchastki();
+
+		// Список долгов по всем участкам
+		$dolgi = Dolgi::getAllDolgi();
+
+		echo '<pre>';
+		print_r($dolgi);
+
+		// Данные по показаниям электросчётчиков
+		//$electroAll = Electro::getAllElectro();
+
+		// Допуск по роли юзера
+		if ($userRole == 'admin' || $userRole == 'pravlenie') {
+			require_once(ROOT.'/views/site/dolgi.php');
 			return true;
 		} else {
 			header("Location: /user/login");
